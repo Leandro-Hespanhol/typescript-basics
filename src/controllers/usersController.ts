@@ -16,7 +16,8 @@ export default class UsersController {
     };
 
     const token: string = jwt.sign({ user }, secret, jwtConfig);
-
-    res.status(201).json(token);
+    req.body.token = token;
+    console.log(req.body);
+    return res.status(201).json({ token });
   }
 }
