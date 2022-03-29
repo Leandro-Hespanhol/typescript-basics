@@ -1,7 +1,7 @@
 import ProductsController from './productsController';
-import usersController from './usersController';
+import UsersController from './usersController';
 
 export {
   ProductsController,
-  usersController,
+  UsersController,
 };
