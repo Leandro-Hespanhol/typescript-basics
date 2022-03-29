@@ -153,7 +153,7 @@ describe("2 - Crie um endpoint para o cadastro de produtos", () => {
   });
 });
 
-describe.only("3 - Crie um endpoint para o cadastro de pessoas usuárias", () => {
+describe("3 - Crie um endpoint para o cadastro de pessoas usuárias", () => {
   beforeEach(async () => {
     await recreateDatabase();
   });
@@ -293,7 +293,6 @@ describe.only("3 - Crie um endpoint para o cadastro de pessoas usuárias", () =>
       level: 2,
       classe: "classe",
     });
-    console.log('TEST 296', result.body)
     expect(result.statusCode).toEqual(201);
     expect(result.body).toBeDefined();
     expect(result.body.token).toBeDefined();

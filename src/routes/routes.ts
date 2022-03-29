@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { ProductsController, UsersController } from '../controllers';
+import { OrdersController, ProductsController, UsersController } from '../controllers';
 import { amountValidation, nameValidation, userClassValidation,
   userLevelValidation, userNameValidation, userPassValidation } from '../middlewares/validation';
 
@@ -8,6 +8,8 @@ const router = Router();
 const productsController = new ProductsController();
 
 const usersController = new UsersController();
+
+const ordersController = new OrdersController();
 
 router.get('/products', async (req, res) => productsController.getAll(req, res));
 
@@ -26,5 +28,7 @@ router.post(
   userPassValidation,
   async (req, res) => usersController.createUser(req, res),
 );
+
+router.get('/orders', async (req, res) => ordersController.getAll(req, res));
 
 export default router;
