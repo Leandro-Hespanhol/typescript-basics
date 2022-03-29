@@ -14,6 +14,6 @@ export default class ProductsController {
     const { name, amount } = req.body;
     const product = await this.productsService.createProduct({ name, amount });
 
-    res.status(200).json(product);
+    res.status(201).json(product);
   }
 }
