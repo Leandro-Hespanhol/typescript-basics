@@ -21,4 +21,11 @@ export default class ProductsModel {
 
     return { id: newProductId, ...product };
   }
+
+  public async getProductById(id: number): Promise<IProducts[]> {
+    const query = 'SELECT * FROM Trybesmith.Products WHERE orderId = ?';
+    const [product] = await this.connection.execute(query, [id]);
+
+    return product as IProducts[];
+  }
 }
