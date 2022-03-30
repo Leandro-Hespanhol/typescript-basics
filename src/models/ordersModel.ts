@@ -6,20 +6,24 @@ export default class OrdersModel {
     this.connection = connection;
   }
 
-  public async getAll(): Promise<IOrders[]> {
-    // const query = `SELECT O.id, O.userId, 
-    // CONCAT("[", GROUP_CONCAT(P.id), "]") as 'products' from Trybesmith.Orders O
-    // INNER JOIN Trybesmith.Products P ON P.orderId = O.id
-    // GROUP BY O.id;`;
-    const query = 'SELECT * FROM Trybesmith.Orders';
-    const [order] = await this.connection.execute<RowDataPacket[]>(query);
+  // public async getAll(): Promise<IOrders[]> {
+  //   // const query = `SELECT O.id, O.userId, 
+  //   // CONCAT("[", GROUP_CONCAT(P.id), "]") as 'products' from Trybesmith.Orders O
+  //   // INNER JOIN Trybesmith.Products P ON P.orderId = O.id
+  //   // GROUP BY O.id;`;
+  //   const query = 'SELECT * FROM Trybesmith.Orders';
+  //   const [order] = await this.connection.execute<RowDataPacket[]>(query);
     
-    return order as IOrders[];
-  }
+  //   return order as IOrders[];
+  // }
 
-  public async alternativeGetAll(): Promise<IOrders[]> {
-    const query = `SELECT O.id, O.userId, P.id as 'products' from Trybesmith.Orders O
-    INNER JOIN Trybesmith.Products P ON P.orderId = O.id`;
+  public async getAll(): Promise<IOrders[]> {
+    // const query = `SELECT O.id, O.userId, P.id as 'products' from Trybesmith.Orders O
+    // INNER JOIN Trybesmith.Products P ON P.orderId = O.id`;
+    const query = `SELECT O.id, O.userId, 
+    CONCAT("[", GROUP_CONCAT(P.id), "]") as 'products' from Trybesmith.Orders O
+    INNER JOIN Trybesmith.Products P ON P.orderId = O.id
+    GROUP BY P.orderId ORDER BY O.userId;`;
     const [order] = await this.connection.execute<RowDataPacket[]>(query);
 
     return order as IOrders[];

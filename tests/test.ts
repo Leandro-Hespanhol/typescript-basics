@@ -310,6 +310,7 @@ describe("4 - Crie um endpoint para listar todos os pedidos", () => {
 
     expect(result.statusCode).toBe(200);
     expect(result.body).toBeDefined();
+    console.log(result.body);
     expect(result.body.length).toBe(3);
     expect(result.body[0].id).toBeDefined();
     expect(result.body[0].userId).toBe(1);

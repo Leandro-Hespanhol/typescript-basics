@@ -6,7 +6,7 @@ export default class OrderController {
 
   public async getAll(_req: Request, res: Response) {
     const orders = await this.orderService.getOrders();
-
-    res.status(200).json(orders);
+    const parseProdutcs = orders.map((elem) => ({ ...elem, products: JSON.parse(elem.products) }));
+    res.status(200).json(parseProdutcs);
   }
 }
