@@ -1,7 +1,7 @@
 interface IOrders {
   id: number,
   userId: number,
-  products: any,
+  products: string,
 }
 
 interface IOrderTable {

@@ -1,4 +1,4 @@
-export default interface IUser {
+interface IUser {
   id?: number,
   username: string,
   classe: string,
@@ -6,6 +6,12 @@ export default interface IUser {
   password: string,
 }
 
-// export {
-//   IUser,
-// };
+interface ILogin {
+  username: string,
+  password: string,
+}
+
+export {
+  IUser,
+  ILogin,
+};

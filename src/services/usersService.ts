@@ -1,4 +1,4 @@
-import IUser from '../interfaces/IUser';
+import { ILogin, IUser } from '../interfaces/IUser';
 import connection from '../models/connection';
 import UserModel from '../models/userModel';
 
@@ -11,5 +11,9 @@ export default class UsersService {
 
   public async createUser(user: IUser): Promise<IUser> {
     return this.model.createUser(user);
+  }
+
+  public async login(login: ILogin): Promise<ILogin[]> {
+    return this.model.login(login);
   }
 }

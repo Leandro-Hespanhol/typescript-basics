@@ -31,4 +31,11 @@ router.post(
 
 router.get('/orders', async (req, res) => ordersController.getAll(req, res));
 
+router.post(
+  '/login', 
+  userNameValidation, 
+  userPassValidation,
+  async (req, res) => usersController.login(req, res),
+);
+
 export default router;
