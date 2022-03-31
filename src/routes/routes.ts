@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { OrdersController, ProductsController, UsersController } from '../controllers';
-import { amountValidation, nameValidation, userClassValidation,
+import { amountValidation, nameValidation, productsArrayValidation, userClassValidation,
   userLevelValidation, userNameValidation, userPassValidation } from '../middlewares/validation';
+import auth from '../services/auth';
 
 const router = Router();
 
@@ -36,6 +37,13 @@ router.post(
   userNameValidation, 
   userPassValidation,
   async (req, res) => usersController.login(req, res),
+);
+
+router.post(
+  '/orders',
+  auth,
+  productsArrayValidation,
+  async (req, res) => ordersController.createOrder(req, res),
 );
 
 export default router;

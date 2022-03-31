@@ -9,4 +9,12 @@ export default class OrderController {
     const parseProdutcs = orders.map((elem) => ({ ...elem, products: JSON.parse(elem.products) }));
     res.status(200).json(parseProdutcs);
   }
+
+  public async createOrder(req: Request, res: Response) {
+    const { products, user: { id: userId } } = req.body;
+
+    const newOrder = await this.orderService.createOrder(userId, products);
+
+    res.status(201).json(newOrder);
+  }
 }

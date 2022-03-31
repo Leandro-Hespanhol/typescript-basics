@@ -68,6 +68,23 @@ const userLevelValidation = (req: Request, res: Response, next: NextFunction) =>
   next();
 };
 
+const productsArrayValidation = (req: Request, res: Response, next: NextFunction) => {
+  const { products } = req.body;
+  // console.log('REQBODY', req.body);
+  // console.log('LINHA 73 VALID', req.body);
+  if (products === undefined || products === null) {
+    return res.status(400).json({ error: 'Products is required' });
+  }
+  if (!Array.isArray(products)) {
+    return res.status(422).json({ error: 'Products must be an array of numbers' });
+  }
+  if (!products.length) {
+    return res.status(422).json({ error: 'Products can\'t be empty' });
+  }
+
+  next();
+};
+
 export {
   nameValidation,
   amountValidation,
@@ -75,4 +92,5 @@ export {
   userClassValidation,
   userLevelValidation,
   userPassValidation,
+  productsArrayValidation,
 };

@@ -9,7 +9,15 @@ interface IOrderTable {
   userId: number,
 }
 
+interface ICreateOrder {
+  order: {
+    userId: number,
+    products: number[]
+  }
+}
+
 export {
   IOrders,
   IOrderTable,
+  ICreateOrder,
 };

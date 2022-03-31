@@ -23,17 +23,16 @@ export default class UsersController {
 
   async login(req: Request, res: Response) {
     const { username, password } = req.body;
-    const checkLogin = await this.userService.login({ username, password });
+    const [payload] = await this.userService.login({ username, password });
     const secret: string = process.env.JWT_SECRET || 'segredo';
-    if (!checkLogin.length) return res.status(401).json({ error: 'Username or password invalid' });
+    if (!payload) return res.status(401).json({ error: 'Username or password invalid' });
   
     const jwtConfig: object = {
       expiresIn: '7d',
       algorithm: 'HS256',
     };
 
-    const token: string = jwt.sign({ checkLogin }, secret, jwtConfig);
-    req.body.token = token;
+    const token: string = jwt.sign({ payload }, secret, jwtConfig);
     
     return res.status(200).json({ token });
   }

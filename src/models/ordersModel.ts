@@ -1,5 +1,5 @@
-import { Pool, RowDataPacket } from 'mysql2/promise';
-import { IOrders } from '../interfaces/IOrders';
+import { Pool, RowDataPacket, ResultSetHeader } from 'mysql2/promise';
+import { ICreateOrder, IOrders } from '../interfaces/IOrders';
 
 export default class OrdersModel {
   constructor(private connection: Pool) {
@@ -14,5 +14,17 @@ export default class OrdersModel {
     const [order] = await this.connection.execute<RowDataPacket[]>(query);
 
     return order as IOrders[];
+  }
+
+  public async createOrder(userId: number, products: number[]): Promise<ICreateOrder> {
+    const queryOrder = 'INSERT INTO Trybesmith.Orders (userId) VALUES (?)';
+    const [result] = await this.connection.execute<ResultSetHeader>(queryOrder, [userId]);
+    const orderId = result.insertId;
+    
+    const queryProducts = 'UPDATE Trybesmith.Products SET orderId=? WHERE id IN (?)';
+    await this.connection.execute(queryProducts, [orderId, ...products]);
+    // talvez falte fazer um select
+
+    return { order: { userId, products } };
   }
 }
