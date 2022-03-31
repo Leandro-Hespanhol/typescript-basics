@@ -21,10 +21,18 @@ export default class OrdersModel {
     const [result] = await this.connection.execute<ResultSetHeader>(queryOrder, [userId]);
     const orderId = result.insertId;
     
-    const queryProducts = 'UPDATE Trybesmith.Products SET orderId=? WHERE id IN (?)';
+    let quant = '?';
+    for (let idx = 1; idx < products.length; idx += 1) {
+      quant += ',?';
+    }
+    
+    const queryProducts = `UPDATE Trybesmith.Products SET orderId=? WHERE id IN (${quant})`;
     await this.connection.execute(queryProducts, [orderId, ...products]);
     // talvez falte fazer um select
-
+    
+    // const queryTest = 'SELECT * FROM Trybesmith.Products';
+    // const [testtest] = await this.connection.execute(queryTest);
+    
     return { order: { userId, products } };
   }
 }

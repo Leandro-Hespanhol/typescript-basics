@@ -70,8 +70,6 @@ const userLevelValidation = (req: Request, res: Response, next: NextFunction) =>
 
 const productsArrayValidation = (req: Request, res: Response, next: NextFunction) => {
   const { products } = req.body;
-  // console.log('REQBODY', req.body);
-  // console.log('LINHA 73 VALID', req.body);
   if (products === undefined || products === null) {
     return res.status(400).json({ error: 'Products is required' });
   }

@@ -4,7 +4,6 @@ import { RowDataPacket } from 'mysql2';
 import connection from '../models/connection';
 
 export default async (req: Request, res: Response, next: NextFunction) => {
-  console.log('REQBODY AUTH', req.body);
   const token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ error: 'Token not found' });
